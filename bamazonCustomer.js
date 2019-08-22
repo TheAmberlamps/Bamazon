@@ -17,9 +17,9 @@ connection.query("SELECT * FROM products", function(err, res) {
   if(err) throw err;
     console.log("These are all the products that we have available at this time: \n")
     console.log(res);
-    res.forEach(function(product){
-      console.log(product.product_name);
-    });
+    // res.forEach(function(product){
+    //   console.log(product.product_name);
+    // });
 
     inquirer
     .prompt([
@@ -49,9 +49,9 @@ connection.query("SELECT * FROM products", function(err, res) {
         
         if(chosenItem.stock_quantity > parseInt(ordNum)){
 
-          var stock = res[i].stock_quantity;
+          var stock = chosenItem.stock_quantity;
           console.log("Stock: \n" + stock + "\n");
-          var price = res[i].price;
+          var price = chosenItem.price;
           console.log("Price: \n" + price + "\n");
           var ordAmt = parseInt(ordNum);
           console.log("Order Amount: \n" + ordAmt + "\n");
@@ -59,7 +59,7 @@ connection.query("SELECT * FROM products", function(err, res) {
           console.log("Total price of order: \n" + totPrice + "\n");
           var newAmt = stock - ordAmt;
           console.log("New Amount in Stock: \n" + newAmt + "\n");
-          console.log("Updating " + res[i].product_name + " stock quantities...\n");
+          console.log("Updating " + chosenItem.product_name + " stock quantities...\n");
               
           connection.query(
             "UPDATE products SET ? WHERE ?\n",
